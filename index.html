@@ -3,20 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Workshop: Construa com IA — Claude, Claude Code & Comunidade</title>
+<title>Workshop: Construa com IA — Claude Code & Construções Reais</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #09090b;
     --bg-card: #111113;
-    --bg-card-hover: #19191d;
     --text: #ededef;
     --text-muted: #7a7a85;
     --accent: #00d35a; 
     --accent-light: #5efc82;
     --accent-glow: rgba(0, 211, 90, 0.15);
-    --code-bg: #0d1117;
     --border: #1e1e22;
     --radius: 14px;
   }
@@ -38,45 +36,47 @@
   nav .logo span { color: var(--accent-light); }
   nav .cta-nav { background: var(--accent); color: #000; padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; text-decoration: none; }
 
-  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 100px; position: relative; }
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 100px; }
   .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-card); border: 1px solid var(--border); padding: 7px 14px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent-light); margin-bottom: 32px; width: fit-content; }
-  .hero h1 { font-family: 'Instrument Serif', serif; font-size: clamp(40px,8vw,72px); line-height: 1.05; font-weight: 400; letter-spacing: -2px; margin-bottom: 24px; }
+  
+  /* CONTAINER DO LOGO CLAUDE CODE */
+  .logo-container {
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 40px;
+    max-width: 500px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .logo-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+  }
+
+  .hero h1 { font-family: 'Instrument Serif', serif; font-size: clamp(38px,7vw,68px); line-height: 1.1; font-weight: 400; letter-spacing: -1.5px; margin-bottom: 24px; }
   .hero h1 em { font-style: italic; color: var(--accent-light); }
   .hero-sub { font-size: 18px; color: var(--text-muted); max-width: 580px; margin-bottom: 40px; }
   
-  /* BLOCO DE CÓDIGO - CLAUDE EXAMPLE */
-  .hero-code { background: var(--code-bg); border: 1px solid #21262d; border-radius: 12px; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.8; margin-bottom: 40px; max-width: 500px; overflow-x: auto; border-left: 3px solid var(--accent); }
-  .hero-code .prompt { color: var(--text-muted); }
-  .hero-code .cmd { color: var(--accent-light); }
-  .hero-code .output { color: #d2a8ff; }
-  .hero-code .comment { color: #484f58; font-style: italic; }
-
   .hero-meta { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 48px; }
-  .hero-meta .item { display: flex; align-items: center; gap: 10px; font-size: 14px; background: var(--bg-card); padding: 10px 18px; border-radius: 10px; border: 1px solid var(--border); }
+  .hero-meta .item { background: var(--bg-card); padding: 10px 18px; border-radius: 10px; border: 1px solid var(--border); font-size: 14px; }
   .hero-meta .item strong { color: var(--text); }
-  .hero-meta .item span { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+  .hero-meta .item span { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; }
 
-  .section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 2px; margin-bottom: 12px; display: block; }
-  .section-title { font-family: 'Instrument Serif', serif; font-size: 38px; margin-bottom: 40px; line-height: 1.1; }
-  
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 60px; }
+  .section-title { font-family: 'Instrument Serif', serif; font-size: 36px; margin-bottom: 40px; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 60px; }
   .card { background: var(--bg-card); border: 1px solid var(--border); padding: 32px; border-radius: var(--radius); }
-  .card h3 { font-size: 20px; margin-bottom: 12px; color: var(--text); }
+  .card h3 { font-size: 20px; margin-bottom: 12px; color: var(--accent-light); }
   .card p { font-size: 15px; color: var(--text-muted); }
 
   .cta-box { background: linear-gradient(145deg, var(--bg-card), #161618); border: 1px solid var(--border); border-radius: 24px; padding: 60px 40px; text-align: center; margin: 80px 0; }
   .price { font-family: 'Instrument Serif', serif; font-size: 64px; color: var(--accent); margin-bottom: 8px; }
-  .btn-final { display: inline-flex; align-items: center; gap: 12px; background: var(--accent); color: #000; padding: 20px 48px; border-radius: 100px; font-size: 18px; font-weight: 700; text-decoration: none; transition: 0.3s; }
+  .btn-final { display: inline-flex; align-items: center; gap: 12px; background: var(--accent); color: #000; padding: 18px 40px; border-radius: 100px; font-size: 18px; font-weight: 700; text-decoration: none; transition: 0.3s; }
   .btn-final:hover { transform: scale(1.03); box-shadow: 0 0 40px var(--accent-glow); }
 
   footer { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); }
-
-  .urgency-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(9,9,11,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--border); padding: 15px; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 100; }
-  
-  @media (max-width: 600px) {
-    .urgency-bar { flex-direction: column; text-align: center; }
-    .hero { padding-top: 120px; }
-  }
 </style>
 </head>
 <body>
@@ -88,73 +88,54 @@
 
 <div class="container">
   <section class="hero">
-    <div class="hero-badge">Prático • 16 de Abril • Quinta-feira</div>
-    <h1>Pare de perguntar.<br>Comece a <em>construir.</em></h1>
-    <p class="hero-sub">Um workshop presencial focado em execução, troca de informações estratégicas e aplicações reais com Claude e IA.</p>
+    <div class="hero-badge">Workshop Prático • 16/04</div>
     
-    <div class="hero-code">
-      <span class="prompt">$</span> <span class="cmd">claude</span> <span class="flag">"cria uma aplicação que analisa</span><br>
-      <span class="flag">&nbsp;&nbsp;meus dados de negócio e gera</span><br>
-      <span class="flag">&nbsp;&nbsp;uma apresentação estratégica"</span><br>
-      <span class="output">✓ Gerando insights e estrutura visual...</span><br>
-      <span class="comment">// isso é o que vamos fazer na prática.</span>
+    <!-- LOGO DO CLAUDE CODE AQUI -->
+    <div class="logo-container">
+      <img src="claude-code.gif" alt="Claude Code Logo Animation">
     </div>
 
+    <h1>Onde a teoria termina e as <em>construções reais</em> começam.</h1>
+    <p class="hero-sub">Aprenda a dominar o <strong>Claude Code</strong> para construir aplicações, automações e apresentações de negócios do zero ao funcional.</p>
+    
     <div class="hero-meta">
-      <div class="item"><div><span>Data</span><strong>16/04 • Quinta</strong></div></div>
-      <div class="item"><div><span>Local</span><strong>Uzi Coworking</strong></div></div>
-      <div class="item"><div><span>Abertura</span><strong>19:00h</strong></div></div>
+      <div class="item"><span>Data</span><strong>16/04 • Quinta-feira</strong></div>
+      <div class="item"><span>Local</span><strong>Uzi Coworking</strong></div>
+      <div class="item"><span>Início</span><strong>19:00h</strong></div>
     </div>
     
-    <a href="https://pay.kiwify.com.br/ePIX59K" class="btn-final">Quero minha vaga →</a>
+    <a href="https://pay.kiwify.com.br/ePIX59K" class="btn-final">Iniciar minha construção →</a>
   </section>
 
   <section>
-    <span class="section-label">// execução e troca</span>
-    <h2 class="section-title">Muito além de uma aula,<br>uma troca de inteligência.</h2>
-    <div class="grid">
+    <h2 class="section-title">Foco em execução</h2>
+    <div class="card-grid">
       <div class="card">
-        <h3>Aplicações Reais</h3>
-        <p>Aprenda a estruturar fluxos que resolvem problemas reais. Vamos transformar informações brutas em ferramentas funcionais usando Claude e IA.</p>
+        <h3>Construções com Claude Code</h3>
+        <p>Saia do chat convencional. Vamos abrir o terminal e usar o Claude Code para construir ferramentas e scripts que trabalham por você.</p>
       </div>
       <div class="card">
-        <h3>Claude Code</h3>
-        <p>Mão na massa no terminal. Veja como o agente de código da Anthropic pode acelerar suas entregas e automações, independente do seu nível técnico.</p>
+        <h3>Aplicações de Negócios</h3>
+        <p>Transforme ideias em protótipos funcionais. Focaremos em como a IA pode construir soluções que reduzem custos e aumentam a tração do seu negócio[cite: 1].</p>
       </div>
       <div class="card">
-        <h3>Business Decks</h3>
-        <p>Apresentações de negócios feitas com IA que não apenas parecem boas, mas que vendem ideias através de dados e lógica visual agressiva.</p>
+        <h3>Troca e Comunidade</h3>
+        <p>Um ambiente de troca de informações privilegiadas entre quem já está aplicando IA no dia a dia. Network focado em construção[cite: 1].</p>
       </div>
-    </div>
-  </section>
-
-  <section>
-    <span class="section-label">// ecossistema</span>
-    <h2 class="section-title">Comunidade Promoove</h2>
-    <p style="color: var(--text-muted); font-size: 18px; margin-bottom: 40px; max-width: 600px;">
-      O workshop é apenas o início. Ao participar, você entra para um grupo de pessoas que estão na fronteira da IA, trocando ferramentas, prompts e oportunidades de negócios diariamente.
-    </p>
-    <div class="card" style="background: rgba(0, 211, 90, 0.03); border-color: rgba(0, 211, 90, 0.2);">
-      <p style="color: var(--text); font-weight: 500;">O objetivo é simples: conectar quem está construindo o amanhã hoje.</p>
     </div>
   </section>
 
   <div class="cta-box">
-    <h2 class="section-title">Invista na sua evolução</h2>
+    <h2 class="section-title">Participe do ecossistema</h2>
     <div class="price">R$ 67</div>
-    <p style="margin-bottom: 32px; color: var(--text-muted);">Workshop Presencial + Material de Apoio + Acesso à Comunidade.</p>
-    <a href="https://pay.kiwify.com.br/ePIX59K" class="btn-final">Garantir minha vaga →</a>
+    <p style="margin-bottom: 32px; color: var(--text-muted);">Evento presencial + Grupo de troca de informações + Materiais exclusivos.</p>
+    <a href="https://pay.kiwify.com.br/ePIX59K" class="btn-final">Garantir minha vaga agora →</a>
   </div>
 </div>
 
 <footer>
-  <p>Promoove IA • 16 de Abril de 2026 • Quinta-feira • Sapucaia do Sul</p>
+  <p>Promoove IA • Quinta-feira, 16 de Abril de 2026 • Sapucaia do Sul</p>
 </footer>
-
-<div class="urgency-bar">
-  <p>⚡ <strong>Vagas Limitadas</strong> · 16/04 no Uzi Coworking</p>
-  <a href="https://pay.kiwify.com.br/ePIX59K" style="background: var(--accent); color: #000; padding: 8px 20px; border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 13px;">Inscrever</a>
-</div>
 
 </body>
 </html>
